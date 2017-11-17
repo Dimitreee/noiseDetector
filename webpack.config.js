@@ -9,7 +9,7 @@ const HtmlPlugin = new HtmlWebpackPlugin({
 
 module.exports = {
     entry: {
-        app: './src/js/index.js'
+        app: './src/index.js'
     },
     output: {
         path: path.join(__dirname, './dist'),
