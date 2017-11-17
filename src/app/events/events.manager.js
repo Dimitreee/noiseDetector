@@ -1,4 +1,4 @@
-import {Subject} from 'rx-js/Subject';
+import {Subject} from 'rxjs/Subject';
 
 let Rx = require('rx-dom/index');
 
