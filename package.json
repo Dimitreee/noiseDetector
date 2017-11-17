@@ -1,0 +1,37 @@
+{
+  "name": "OsomoGame_reborn",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "serve": "webpack-dev-server",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Dimitreee/osomgame_reborn.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Dimitreee/osomgame_reborn/issues"
+  },
+  "dependencies": {
+    "babel-core": "^6.24.0",
+    "babel-loader": "^6.4.1",
+    "babel-preset-es2015": "^6.24.0",
+    "html-webpack-plugin": "^2.30.1",
+    "moment": "^2.18.1",
+    "rxjs": "^5.3.0",
+    "script-ext-html-webpack-plugin": "^1.8.8",
+    "webpack": "^2.3.2"
+  },
+  "devDependencies": {
+    "babel-core": "^6.24.0",
+    "babel-loader": "^6.4.1",
+    "babel-preset-es2015": "^6.24.0",
+    "raw-loader": "^0.5.1",
+    "webpack-dev-server": "^2.9.4"
+  },
+  "homepage": "https://github.com/Dimitreee/osomgame_reborn#readme"
+}
