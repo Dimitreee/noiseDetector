@@ -1,15 +1,16 @@
 import {Subject} from 'rxjs/Subject';
-
 let Rx = require('rx-dom/index');
 
 import {EventsService} from './events.service';
 
 export class EventsManager {
     constructor() {
-        this.innerEventsThread = Rx.DOM.keydown(window).filter(keyCodeFilter);
+        this.actors = Rx.DOM.keydown(window).filter(keyCodeFilter);
         this.outerEventsThread = new Subject();
-        this.eventsService = new EventsService(this.innerEventsThread);
-        this.eventsService.thread.subscribe((event) => {
+
+        this.eventsService = new EventsService(this.actors);
+
+        this.eventsService.outerThread.subscribe((event) => {
             this.outerEventsThread.next(event)
         })
     }

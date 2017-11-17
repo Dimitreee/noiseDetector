@@ -1,12 +1,13 @@
 import {Subject} from 'rxjs/Subject';
 
 export class EventsService {
-    constructor(thread) {
-        thread.subscribe((event) =>
-            this.keyListener(event)
+    constructor(actors) {
+        actors.subscribe((event) => {
+                this.keyListener(event)
+            }
         );
 
-        this.thread = new Subject();
+        this.outerThread = new Subject();
     }
 
     keyListener(event) {
@@ -14,7 +15,7 @@ export class EventsService {
 
         EventObject.keyCode = event.keyCode;
 
-        this.thread.next(EventObject);
+        this.outerThread.next(EventObject);
     }
 }
 
