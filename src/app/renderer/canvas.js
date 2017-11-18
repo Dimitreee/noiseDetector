@@ -52,10 +52,8 @@ export class Canvas {
 
         canvas.style.width = `${x}px`;
         canvas.style.height = `${y}px`;
-
         return canvas;
     }
-
 
     clearRect(x, y, width, height) {
         this.context.clearRect(x, y, width, height);

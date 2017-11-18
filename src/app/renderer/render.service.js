@@ -3,12 +3,14 @@ import {Canvas} from './canvas';
 export class RenderService {
     constructor() {
         this.canvas = new Canvas();
+        this.renderFrame();
     }
 
-    renderFrame() {
-        requestAnimationFrame(() => {
+    renderFrame(time) {
+        console.log('renderFrame');
+        requestAnimationFrame((timesTamp) => {
             setTimeout(() => {
-              this.renderFrame();
+                this.renderFrame(timesTamp);
             }, 0);
         });
     }
