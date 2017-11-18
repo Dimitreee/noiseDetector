@@ -1,5 +1,27 @@
 import {AppController} from './app/app.controller';
+const polyfill = (() => {
+    let clock = Date.now();
 
-document.addEventListener("DOMContentLoaded", ()=> {
-   new AppController();
+    return (callback) => {
+
+        const currentTime = Date.now();
+
+        if (currentTime - clock > 16) {
+            clock = currentTime;
+            callback(currentTime);
+        } else {
+            setTimeout(() => {
+                polyfill(callback);
+            }, 0);
+        }
+    };
+})();
+
+document.addEventListener("DOMContentLoaded", () => {
+    window.requestAnimationFrame = window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        polyfill;
+
+    new AppController();
 });
