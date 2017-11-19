@@ -1,6 +1,10 @@
 export class Canvas {
     constructor() {
         this.canvas = Canvas.initCanvas();
+        this.width = null;
+        this.height = null;
+
+        this.setCanvasWidth();
         this.context = this.canvas.getContext('2d');
     }
 
@@ -41,18 +45,23 @@ export class Canvas {
     static initCanvas() {
         let canvas = document.createElement('canvas');
         let canvasContainer = document.querySelector('.canvas__container');
+
+
+        canvasContainer.appendChild(canvas);
+        return canvas;
+    }
+
+    setCanvasWidth() {
         let w = window,
             d = document,
             e = d.documentElement,
             g = d.getElementsByTagName('body')[0],
             x = w.innerWidth || e.clientWidth || g.clientWidth,
             y = w.innerHeight || e.clientHeight || g.clientHeight;
-
-        canvasContainer.appendChild(canvas);
-
-        canvas.style.width = `${x}px`;
-        canvas.style.height = `${y}px`;
-        return canvas;
+        this.canvas.width = this.width = x;
+        this.canvas.height = this.height = y;
+        this.canvas.style.width = `${x}px`;
+        this.canvas.style.height = `${y}px`;
     }
 
     clearRect(x, y, width, height) {
@@ -61,6 +70,10 @@ export class Canvas {
 
     fillRect(x, y, width, height) {
         this.context.fillRect(x, y, width, height);
+    }
+
+    beginPath() {
+        this.context.beginPath();
     }
 
     strokeRect(x, y, width, height) {

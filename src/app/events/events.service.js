@@ -1,11 +1,25 @@
 import {Subject} from 'rxjs/Subject';
 
 export class EventsService {
-    constructor(actors) {
+    constructor(actors, actorsQueueEnd) {
+        this.queueEnd = new Subject();
+
+        this.queueParams = {
+            fadingStart: null
+        };
+
         actors.subscribe((event) => {
-                this.keyListener(event)
-            }
-        );
+            this.keyListener(event)
+        });
+
+        actorsQueueEnd.subscribe(() => {
+            this.setEndTime();
+            this.queueEnd.next(this.queueParams.fadingStart);
+
+            setTimeout(() => {
+                this.fadingStart = null;
+            }, 2000)
+        });
 
         this.outerThread = new Subject();
     }
@@ -16,6 +30,10 @@ export class EventsService {
         EventObject.keyCode = event.keyCode;
 
         this.outerThread.next(EventObject);
+    }
+
+    setEndTime() {
+        this.queueParams.fadingStart = new Date();
     }
 }
 

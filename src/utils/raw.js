@@ -134,5 +134,4 @@ export let raw = (window, request, cancel) => {
     }
 
     window[request] = raf;
-
-}
+};

@@ -6,12 +6,17 @@ import {EventsService} from './events.service';
 export class EventsManager {
     constructor() {
         this.actors = Rx.DOM.keydown(window).filter(keyCodeFilter);
-        this.outerEventsThread = new Subject();
+        this.actorsQueueEnd = Rx.DOM.keyup(window).filter(keyCodeFilter);
 
-        this.eventsService = new EventsService(this.actors);
+        this.outerEventsThread = new Subject();
+        this.eventsService = new EventsService(this.actors, this.actorsQueueEnd);
 
         this.eventsService.outerThread.subscribe((event) => {
-            this.outerEventsThread.next(event)
+            this.outerEventsThread.next(event);
+        });
+
+        this.eventsService.queueEnd.subscribe((endTime) => {
+            this.outerEventsThread.next(endTime);
         })
     }
 }

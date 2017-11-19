@@ -4,7 +4,7 @@ import {Subject} from 'rxjs';
 export class StateManager {
     constructor(stateSignature) {
         this.innerThread = new Subject();
-        this.outerThread = new Subject();
+        this.outerDirectionThread = new Subject();
 
         this.state = new StateService(stateSignature);
 
@@ -13,7 +13,7 @@ export class StateManager {
         });
 
         this.state.directionThread.subscribe((state) => {
-            this.outerThread.next(state);
+            this.outerDirectionThread.next(state);
         })
     }
 }
