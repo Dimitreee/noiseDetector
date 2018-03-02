@@ -24,6 +24,7 @@ export class EventsManager {
 function keyCodeFilter(event) {
     return event.keyCode === 32
         || event.keyCode === 37
+        || event.keyCode === 10
         || event.keyCode === 38
         || event.keyCode === 39
         || event.keyCode === 40

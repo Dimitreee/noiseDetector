@@ -8,6 +8,8 @@ export class EventsService {
             fadingStart: null
         };
 
+        this.tap = 1;
+
         actors.subscribe((event) => {
             this.keyListener(event)
         });
