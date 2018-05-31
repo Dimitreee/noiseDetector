@@ -1,6 +1,6 @@
 # Noise Detector
 ## GUI
-<img src="images/noiseDetectorScreen.jpg" alt="preview 1" width="auto" height="autoc">
+<img src="images/noiseDetectorScreen.png" alt="preview 1" width="auto" height="autoc">
 
 
 ### Quick start
