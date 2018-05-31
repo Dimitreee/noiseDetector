@@ -1,34 +1,34 @@
-import {EventsManager} from './events/events.manager.js'
-import {StateManager} from './state/state.manager.js';
-import {RenderManager} from './renderer/render.manager.js';
-import {PlayerManager} from './player/player.manager.js';
-
-let stateSignature = {
-    direction: null,
-    type: null
-};
+import { MicrophoneController } from "./audio.controller"
+import { CanvasController } from "./canvas.controller"
+import { StorageController } from "./storage.controller";
 
 export class AppController {
     constructor() {
-        this.eventsManager = new EventsManager();
-        this.stateManager = new StateManager(stateSignature);
-        this.renderManager = new RenderManager();
-        this.playerManager = new PlayerManager();
+      this.mic = new MicrophoneController();
+      this.canvasController = new CanvasController();
+      this.storageController = new StorageController(this.mic);
 
-        this.eventsManager.outerEventsThread.subscribe((event) => {
-            if (event.getName() === 'Date') {
-                this.playerManager.innerThread.next(event);
-            } else {
-                this.stateManager.innerThread.next(event);
-            }
-        });
+      this.draw = () => {
+        this.canvasController.visualizator(this.mic.peak_volume, this.mic.volume);
+        requestAnimationFrame(this.draw)
+      };
 
-        this.stateManager.outerDirectionThread.subscribe((state) => {
-            this.playerManager.innerThread.next(state);
-        });
+      requestAnimationFrame(this.draw);
+      this.addListenerers()
+    }
 
-        this.playerManager.outerThread.subscribe((event) => {
-            this.renderManager.playerCordsThread.next(event);
-        })
+    addListenerers() {
+      const saveButton = document.querySelector('.save');
+
+      saveButton.addEventListener("click", () => {
+        const RMSValue = this.mic.peak_volume;
+        this.storageController.saveData(RMSValue)
+      }, false);
+
+      const clearButton = document.querySelector('.clear');
+
+      clearButton.addEventListener("click", () => {
+        this.storageController.clearData()
+      })
     }
 }

@@ -1,9 +1,12 @@
-# OSOMGAME - rebron (pet project)
+# Noise Detector
+## GUI
+<img src="images/noiseDetectorScreen.jpg" alt="preview 1" width="auto" height="autoc">
 
 
+### Quick start
 ````
-git clone https://github.com/Dimitreee/osomgame_reborn
-cd osomage_reborn
+git clone https://github.com/Dimitreee/noiseDetector.git
+cd noiseDetector
 npm install
 ````
 ### dev mode:

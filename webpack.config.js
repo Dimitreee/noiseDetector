@@ -24,6 +24,13 @@ module.exports = {
                     loader: 'babel-loader',
                     options: { presets: ['es2015'] }
                 }]
+            },
+            {
+              test: /\.css$/,
+              use: [
+                { loader: "style-loader" },
+                { loader: "css-loader" }
+              ]
             }
         ],
         loaders: [
@@ -38,7 +45,7 @@ module.exports = {
             path.resolve(__dirname, 'node_modules')
         ]
     },
-    devtool: 'source-map',
+    devtool: 'source-helpers',
     devServer: {
         contentBase: path.join(__dirname, "./dist"),
         port: 8080,
