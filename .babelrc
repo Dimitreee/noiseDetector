@@ -9,7 +9,9 @@
     "@babel/preset-react",
   ],
   "plugins": [
-    "emotion",
+    ["@babel/transform-runtime", {
+      "regenerator": true
+    }],
     "@babel/syntax-dynamic-import",
     "@babel/proposal-export-default-from",
     "@babel/proposal-class-properties",
@@ -20,6 +22,10 @@
     }],
     ["inline-import", {
       "extensions": [".css", ".woff"]
+    }],
+    ["@babel/plugin-transform-async-to-generator", {
+      "module": "bluebird",
+      "method": "coroutine"
     }]
   ]
 }
