@@ -9,6 +9,7 @@
     "@babel/preset-react",
   ],
   "plugins": [
+    ["emotion"],
     ["@babel/transform-runtime", {
       "regenerator": true
     }],

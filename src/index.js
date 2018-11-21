@@ -1,10 +1,11 @@
 import React from "react"
-import {render} from "react-dom"
-
+import * as serviceWorker from "./serviceWorker"
+import ReactDOM from "react-dom"
 import Pages from "/pages"
 
-import * as serviceWorker from "./serviceWorker"
-
-render(<Pages />, document.getElementById('root'));
+ReactDOM.render(
+  <Pages />,
+  document.getElementById('root')
+)
 
 serviceWorker.unregister();

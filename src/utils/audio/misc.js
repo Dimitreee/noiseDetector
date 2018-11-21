@@ -20,6 +20,13 @@ export const handleError = e => {
   console.log(e)
 }
 
+export const handleAudioProcess = (analyser, handler) => () => {
+  const spectrum = new Uint8Array(analyser.frequencyBinCount)
+
+  analyser.getByteFrequencyData(spectrum)
+  handler && handler(getRMS(spectrum))
+}
+
 export const adjustFreqData = (frequencyData, ammt) => {
   frequencyData.slice(0, frequencyData.length / 2)
 

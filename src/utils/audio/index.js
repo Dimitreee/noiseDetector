@@ -1,40 +1,52 @@
 import {
-  getRMS,
-  handleError,
   createSource,
-  settingAnalyzer,
+  handleAudioProcess,
 } from "./misc"
 
+const terminateAudio = stream => () => {
+  if (!stream) return
+
+  stream.getAudioTracks()
+    .forEach(track => track.stop())
+}
+
 const init = handler => {
-  const audioContext = new AudioContext()
+  return new Promise((res, rej) => {
+    const audioContext = new AudioContext()
 
-  try {
-    navigator.getUserMedia(
-      {audio: true},
-      processSound(audioContext, handler),
-      handleError
-    )
-  } catch (e) {
-    handleError(e)
-  }
+    try {
+      navigator.getUserMedia(
+        { audio: true },
+        stream => (res(processSound(audioContext, handler, stream))),
+        error => rej(error),
+      )
+    } catch (error) {
+      rej(error)
+    }
+  })
 }
 
-const handleAudioProcess = (analyser, handler) => () => {
-  const spectrum = new Uint8Array(analyser.frequencyBinCount)
-
-  analyser.getByteFrequencyData(spectrum)
-  handler && handler(getRMS(spectrum))
-}
-
-const processSound = (audioContext, handler) => stream => {
+const processSound = (audioContext, handler, stream) => {
   const [analyser, node] = createSource(audioContext)
 
-  settingAnalyzer(analyser)
-
   node.onaudioprocess = () => handleAudioProcess(analyser, handler)()
-  audioContext.createMediaStreamSource(stream).connect(analyser)
-  analyser.connect(node)
-  node.connect(audioContext.destination)
+
+  audioContext
+    .createMediaStreamSource(stream)
+    .connect(analyser)
+
+  analyser
+    .connect(node)
+
+  node
+    .connect(audioContext.destination)
+
+  return stream.getAudioTracks()
 }
 
-init()
+const initAudio = init
+
+export {
+  initAudio,
+  terminateAudio
+}
