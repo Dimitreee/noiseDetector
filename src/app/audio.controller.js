@@ -1,15 +1,22 @@
 export class MicrophoneController {
   constructor() {
     this.FFT_SIZE = 2048;
-    this.data = [];
     this.volume = this.vol = 0;
     this.peak_volume = 0;
-    this.audioContext = new AudioContext();
-    this.SAMPLE_RATE = this.audioContext.sampleRate;
     window.AudioContext = window.AudioContext || window.webkitAudioContext;
     navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia;
 
-    window.addEventListener('load', () => this.init() , false);
+    document.querySelector('.start')
+        .addEventListener('click', () => this.setupContext() , false);
+  }
+
+  setupContext() {
+    if (this.audioContext) {
+      return;
+    }
+    
+    this.audioContext = new AudioContext();
+    this.init()
   }
 
   init () {
